@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "955162269063",
+    "project_id": "health-alarm-v2",
+    "storage_bucket": "health-alarm-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955162269063:android:8c02955c958986c79b2f22",
+        "android_client_info": {
+          "package_name": "com.example.health_alarm_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi66LbvrSjLevr87DohXzxyWbf5zBxQxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
