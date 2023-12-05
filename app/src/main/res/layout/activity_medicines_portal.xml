@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Medicines_Portal"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/recievedtext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="55dp"
+            android:layout_weight="1.7"
+            android:fontFamily="@font/aclonica"
+            android:text="Hello, Welcome back"
+            android:textSize="39dp"
+            android:transitionName="primaryText">
+        </TextView>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_weight="1.2"
+            android:src="@drawable/img1"
+            android:transitionName="primaryImg"></ImageView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/medcines_portal_img"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:padding="10px"
+            android:layout_weight="1"
+            android:src="@drawable/medicine"></ImageView>
+
+        <TextView
+            android:id="@+id/medcines_portal_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:fontFamily="@font/aclonica"
+            android:text="Your medicines portal"
+            android:textSize="20dp">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:padding="30px"
+            android:src="@drawable/img_1"
+            ></ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:fontFamily="@font/aclonica"
+            android:text="Your history portal"
+            android:textSize="20dp">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:padding="30px"
+            android:src="@drawable/img_2"></ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:fontFamily="@font/aclonica"
+            android:text="Your alerts portal"
+            android:textSize="20dp">
+
+        </TextView>
+    </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
