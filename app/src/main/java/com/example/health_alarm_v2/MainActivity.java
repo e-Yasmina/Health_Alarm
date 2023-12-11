@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i=new Intent(MainActivity.this,Login.class);
+                Intent i=new Intent(MainActivity.this,Medicines_Portal.class);
                 Pair[] pairs=new Pair[2];
                 pairs[0]=new Pair<View,String>(iv,"primaryImg");
                 pairs[1]=new Pair<View,String>(tv,"primaryText");

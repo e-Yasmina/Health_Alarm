@@ -5,20 +5,23 @@ import java.util.List;
 
 public class Medicine {
     private static final List<String> VALID_TYPES = Arrays.asList("injections", "eye drops", "oral pills");
-    private int Id;
+    private String Id;
     private String name;
+    private String photo;
     private String type;
     private int quantity;
     private int dose;
     private String frequency;
     private int remaining_amount;
+
     //private Alert alert;
+    public Medicine(){};
 
 
-
-    public Medicine(int id, String name, String type, int quantity, int dose, String frequency, int remaining_amount, Alert alert) {
+    public Medicine(String id, String name, String photo,String type, int quantity, int dose, String frequency, int remaining_amount, Alert alert) {
         Id = id;
         this.name = name;
+        this.photo= photo;
         if (!VALID_TYPES.contains(type.toLowerCase())) {
             throw new IllegalArgumentException("Invalid medicine type");
         }
@@ -30,11 +33,11 @@ public class Medicine {
         //this.alert = alert;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 
@@ -44,6 +47,14 @@ public class Medicine {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getType() {
@@ -78,13 +89,13 @@ public class Medicine {
         this.frequency = frequency;
     }
 
-//    public int getRemaining_amount() {
-//        return remaining_amount;
-//    }
-//
-//    public void setRemaining_amount(int remaining_amount) {
-//        this.remaining_amount = remaining_amount;
-//    }
+    public int getRemaining_amount() {
+        return remaining_amount;
+    }
+
+    public void setRemaining_amount(int remaining_amount) {
+        this.remaining_amount = remaining_amount;
+    }
 
 
 }
