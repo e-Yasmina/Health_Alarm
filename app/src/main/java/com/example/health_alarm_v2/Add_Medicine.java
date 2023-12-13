@@ -92,9 +92,10 @@ public class Add_Medicine extends AppCompatActivity {
                     dose = Integer.parseInt(doseStr);
 
                     Medicine medicine = new Medicine();
+
                     medicine.setName(name);
                     medicine.setPhoto("Not available");
-                    if(photoURL!= null &&  !photoURL.isEmpty() ){
+                    if (photoURL != null && !photoURL.isEmpty()) {
                         medicine.setPhoto(photoURL);
                     }
                     medicine.setType(type);
@@ -102,17 +103,18 @@ public class Add_Medicine extends AppCompatActivity {
                     medicine.setDose(dose);
                     medicine.setFrequency(frequency);
                     medicine.setRemaining_amount(quantity);
-                    // Add the Medicine object to Firebase Firestore
-                    //FirebaseUtils.addItem("Medicines", medicine,getApplicationContext());
-//                    FirestoreUtils.add("Medicines", medicine,
-//                            aVoid -> Log.d("FirestoreUtils", "medicine added successfully"),
-//                            e -> Log.e("FirestoreUtils", "Error adding medicine : " + e.getMessage()));
-//
-                    // Add the Medicine object to Firebase Firestore with an automatically generated ID
+
+                    medicine.setId(null);
+
                     FirestoreUtils.add("Medicines", medicine,
                             documentReference -> {
-                                // Here, documentReference.getId() gives you the automatically generated ID
-                                Log.d("FirestoreUtils", "Medicine added successfully with ID: " + documentReference.getId());
+                                // The ID should be set in the medicine object at this point
+                                String documentId = medicine.getId();
+                                Toast.makeText(getApplicationContext(), "Medicine added successfully with ID: "+medicine.getId(),Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(Add_Medicine.this, Medicines_Portal.class);
+                                startActivity(intent);
+                                finish();
+                                Log.d("FirestoreUtils", "Medicine added successfully with ID: " + documentId);
                             },
                             e -> Log.e("FirestoreUtils", "Error adding medicine: " + e.getMessage()));
 

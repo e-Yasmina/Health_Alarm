@@ -35,39 +35,23 @@ public class Medicines_Portal extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         // Read all documents in the collection
         FirestoreUtils.readCollection("Medicines", Medicine.class,
                 userList -> {
                     for (Medicine m : userList) {
                         itemList.add(m);
+                        adapter.notifyDataSetChanged();
                         Log.d("FirestoreUtils", "Read document: " + m.toString());
                     }
+                    Toast.makeText(getApplicationContext(), "item list filled with "+itemList,Toast.LENGTH_LONG).show();
                 },
                 e -> Log.e("FirestoreUtils", "Error reading documents: " + e.getMessage()));
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(itemList);
         recyclerView.setAdapter(adapter);
-//        FirebaseUtils.readAllItems("Medicines", new FirebaseUtils.FirebaseCallback<List<Medicine>>() {
-//            @Override
-//            public void onSuccess(List<Medicine> result) {
-//
-//                itemList.addAll(result);
-//                adapter.notifyDataSetChanged();
-//                for (Medicine medicine : result) {
-//                    Toast.makeText(getApplicationContext(), medicine.getName(),Toast.LENGTH_LONG).show();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Exception e) {
-//                Toast.makeText(getApplicationContext(), "Read Operation failed",Toast.LENGTH_LONG).show();
-//
-//            }
-//        }, Medicine.class);
+
 
     }
 }

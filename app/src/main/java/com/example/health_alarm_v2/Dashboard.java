@@ -39,10 +39,10 @@ public class Dashboard extends AppCompatActivity {
         });
 
 
-//        tv=findViewById(R.id.recievedtext);
-//
-//        recievedun=getIntent().getExtras().getString("username");
-//        recievedpw=getIntent().getExtras().getString("password");
-//        tv.setText("Welcome"+" "+ recievedun);
+        tv=findViewById(R.id.recievedtext);
+
+        recievedun=getIntent().getExtras().getString("username");
+        recievedpw=getIntent().getExtras().getString("password");
+        tv.setText("Welcome"+" "+ recievedun);
     }
 }

@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="110dp"
+    android:layout_marginBottom="30dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -9,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="50dp"
+
         >
         <ImageView
 
@@ -17,12 +20,13 @@
             android:src="@drawable/list_item"
             android:alpha="0.3"
             app:tint="#77000000"/>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/list_item"
             android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/list_item" />
 
     </RelativeLayout>
     <ImageView
@@ -32,6 +36,7 @@
         android:padding="10dp"
         />
     <RelativeLayout
+        android:id="@+id/button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
@@ -51,6 +56,18 @@
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"/>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/right_arrow"
+            android:tint="#05A3ED"
+            tools:ignore="UseAppTint"></ImageView>
     </RelativeLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -65,7 +82,9 @@
             android:fontFamily="@font/acme"
             android:textSize="25dp"
             android:textStyle="italic"
-            android:text="test">
+            android:text="test"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp">
         </TextView>
         <EditText
             android:id="@+id/id"

@@ -2,4 +2,5 @@
 <resources>
     <drawable name="error_image" />
     <drawable name="placeholder_image" />
+    <drawable name="ic_notification" />
 </resources>
