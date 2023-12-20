@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ManageMedicine extends AppCompatActivity {
     String medicineId;
+    int SELECT_PICTURE = 200;
     Uri selectedImageUri;
     Button modify;
     Button delete;
@@ -36,6 +37,7 @@ public class ManageMedicine extends AppCompatActivity {
     int dose;
     String frequency;
     int  remaining_amount;
+    Button upload;
 
 
     @Override
@@ -43,6 +45,14 @@ public class ManageMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_medicine);
         Intent intent = getIntent();
+        photo=findViewById(R.id.photo_holder);
+        upload=findViewById(R.id.uploadImg);
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageChooser();
+            }
+        });
 
         delete=findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
@@ -140,11 +150,9 @@ public class ManageMedicine extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManageMedicine.this, Reminders.class);
-
                 // Pass the id value to the next activity
                 intent.putExtra("MEDICINE_ID", medicineId);
                 //intent.putExtra("Photo",photo);
-
                 // Start the activity
                 startActivity(intent);
 
@@ -154,7 +162,7 @@ public class ManageMedicine extends AppCompatActivity {
 
         if (intent != null) {
             medicineId = intent.getStringExtra("MEDICINE_ID");
-            Toast.makeText(this, medicineId, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, medicineId, Toast.LENGTH_SHORT).show();
             TextInputLayout nameLayout = findViewById(R.id.name);
             TextInputEditText nameEditText = nameLayout.findViewById(R.id.nametext);
 
@@ -213,4 +221,27 @@ public class ManageMedicine extends AppCompatActivity {
         }
 
     }
+    void imageChooser() {
+
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == SELECT_PICTURE) {
+                selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    photo.setImageURI(selectedImageUri);
+                    photoURL=selectedImageUri.toString();
+                }
+            }
+        }
+    }
+
 }
