@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,6 +21,9 @@ public class Medicines_Portal extends AppCompatActivity {
     RecyclerView.Adapter adapter1;
     CustomAdapter adapter;
     List<Medicine> itemList = new ArrayList<>();
+    Button ib;
+    Button opb;
+    Button edb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,57 @@ public class Medicines_Portal extends AppCompatActivity {
                 },
                 e -> Log.e("FirestoreUtils", "Error reading documents: " + e.getMessage()));
 
+
+
+        opb=findViewById(R.id.orall_pills);
+        opb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirestoreUtils.readByType("Medicines", "oral pills",Medicine.class,
+                        userList -> {
+                            itemList.clear(); // Clear the existing list before adding new items
+                            itemList.addAll(userList); // Add all items of the specified type
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getApplicationContext(), "item list filled with "+itemList,Toast.LENGTH_LONG).show();
+                        },
+                        e -> Log.e("FirestoreUtils", "Error reading documents: " + e.getMessage()));
+
+            }
+        });
+        ib=findViewById(R.id.injections);
+        ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirestoreUtils.readByType("Medicines", "injections",Medicine.class,
+                        userList -> {
+                            itemList.clear(); // Clear the existing list before adding new items
+                            itemList.addAll(userList); // Add all items of the specified type
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getApplicationContext(), "item list filled with "+itemList,Toast.LENGTH_LONG).show();
+                        },
+                        e -> Log.e("FirestoreUtils", "Error reading documents: " + e.getMessage()));
+
+            }
+        });
+        edb=findViewById(R.id.eye_drops);
+        edb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirestoreUtils.readByType("Medicines", "eye drops",Medicine.class,
+                        userList -> {
+                            itemList.clear(); // Clear the existing list before adding new items
+                            itemList.addAll(userList); // Add all items of the specified type
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getApplicationContext(), "item list filled with "+itemList,Toast.LENGTH_LONG).show();
+                        },
+                        e -> Log.e("FirestoreUtils", "Error reading documents: " + e.getMessage()));
+
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(itemList);
         recyclerView.setAdapter(adapter);
-
-
     }
+
+
 }

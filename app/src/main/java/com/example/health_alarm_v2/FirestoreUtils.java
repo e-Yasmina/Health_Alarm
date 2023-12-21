@@ -91,4 +91,18 @@ public class FirestoreUtils {
                 })
                 .addOnFailureListener(onFailureListener);
     }
+    // Method to read documents by type
+    public static <T> void readByType(String collectionName, String typeName, Class<T> documentClass, OnSuccessListener<List<T>> onSuccessListener, OnFailureListener onFailureListener) {
+        firestoreInstance.collection(collectionName)
+                .whereEqualTo("type", typeName)  // Assuming "type" is the field in your document representing the type
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<T> documentList = new ArrayList<>();
+                    for (T document : queryDocumentSnapshots.toObjects(documentClass)) {
+                        documentList.add(document);
+                    }
+                    onSuccessListener.onSuccess(documentList);
+                })
+                .addOnFailureListener(onFailureListener);
+    }
 }

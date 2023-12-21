@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,9 +54,12 @@ public class Reminders extends AppCompatActivity {
                 public void onSuccess(Medicine medicine) {
                     if (medicine != null) {
                         medicine_title.setText(medicine.getName());
-                        if (medicine.getPhoto() != "Not available") {
+                        if (medicine.getPhoto() != null && !medicine.getPhoto().equals("Not available")) {
+                            //Uri imageUri = Uri.parse();
+                            Uri imageUri = Uri.fromFile(new File(medicine.getPhoto()));
                             Glide.with(Reminders.this)
-                                    .load(medicine.getPhoto())
+                                    .load(imageUri)
+                                    //.error(R.drawable.img_3) // Set your default image resource in case of error
                                     .into(photo);
                         }
 
@@ -187,7 +192,13 @@ public class Reminders extends AppCompatActivity {
         }
 
         Intent i = new Intent(Reminders.this, MyReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(Reminders.this, 0, i, 0);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(Reminders.this, 0, i, 0);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(Reminders.this, 0, i, PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(Reminders.this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         alarmManager.set(AlarmManager.RTC_WAKEUP, cal_alarm.getTimeInMillis(),pendingIntent);
     }
 //    private void createNotificationChannel() {

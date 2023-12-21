@@ -46,63 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        new AlertDialog.Builder(this)
-                .setTitle("Permission needed")
-                .setMessage("This permission is needed because of this and that")
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Permission for sdk between 23 and 29
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-                        }
-
-                        // Permission storage for sdk 30 or above
-                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.R) {
-
-                            if(!Environment.isExternalStorageManager()) {
-
-                                try{
-
-                                    Intent intent=new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-
-                                    intent.addCategory("android.intent.category.DEFAULT");
-
-                                    intent.setData(Uri.parse(String.format("package: %s", getApplicationContext().getPackageName())));
-                                    startActivityIfNeeded(intent, 101);
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Intent i=new Intent(MainActivity.this,Login.class);
-                                            Pair[] pairs=new Pair[2];
-                                            pairs[0]=new Pair<View,String>(iv,"primaryImg");
-                                            pairs[1]=new Pair<View,String>(tv,"primaryText");
-                                            ActivityOptions optins=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
-                                            startActivity(i,optins.toBundle());
-
-                                            //finish();
-                                        }
-                                    },splash_screen);
-
-                                }catch (Exception exception) {
-
-                                    Intent intent = new Intent();
-
-                                    intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-
-                                }
-                            }
-                        }
-                    }
-                }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create().show();
         top= AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottom=AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
@@ -111,12 +54,71 @@ public class MainActivity extends AppCompatActivity {
 
         iv.setAnimation(top);
         tv.setAnimation(bottom);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i=new Intent(MainActivity.this,Login.class);
+                Pair[] pairs=new Pair[2];
+                pairs[0]=new Pair<View,String>(iv,"primaryImg");
+                pairs[1]=new Pair<View,String>(tv,"primaryText");
+                ActivityOptions optins=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                startActivity(i,optins.toBundle());
+
+                //finish();
+            }
+        },splash_screen);
+
+//        new AlertDialog.Builder(this)
+//                .setTitle("Permission needed")
+//                .setMessage("This permission is needed because of this and that")
+//                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // Permission for sdk between 23 and 29
+//                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+//                            ActivityCompat.requestPermissions(MainActivity.this,
+//                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+//                        }
+//
+//                        // Permission storage for sdk 30 or above
+//                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.R) {
+//
+//                            if(!Environment.isExternalStorageManager()) {
+//
+//                                try{
+//
+//                                    Intent intent=new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//
+//                                    intent.addCategory("android.intent.category.DEFAULT");
+//
+//                                    intent.setData(Uri.parse(String.format("package: %s", getApplicationContext().getPackageName())));
+//                                    startActivityIfNeeded(intent, 101);
+//
+//
+//                                }catch (Exception exception) {
+//
+//                                    Intent intent = new Intent();
+//
+//                                    intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                })
+//                .create().show();
+
 
         // Check if the READ_EXTERNAL_STORAGE permission is granted
         if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(MainActivity.this, "You have already granted this permission!",
-                    Toast.LENGTH_SHORT).show();
+                Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+            //Toast.makeText(MainActivity.this, "You have already granted this permission!",
+                    //.LENGTH_SHORT).show();
 
         } else {
 
@@ -126,17 +128,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-
-
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-        }
-    }
+//    private void requestStoragePermission() {
+//        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//
+//
+//
+//        } else {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+//        }
+//    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -1,6 +1,7 @@
 package com.example.health_alarm_v2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
@@ -37,22 +39,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Medicine currentItem = itemList.get(position);
 
-        // Load image using your preferred image loading library (e.g., Picasso, Glide)
-        // Example using Glide:
-//        Glide.with(holder.itemView.getContext())
-//                .load(currentItem.getPhoto())
-//                .placeholder(R.drawable.placeholder_image)
-//                .error(R.drawable.error_image)
-//                .into(holder.itemImage);
-
         holder.itemText.setText(currentItem.getName());
         holder.id.setText(currentItem.getId());
-        if (currentItem.getPhoto() == "Not available" ) {
-            holder.itemImage.setImageResource(R.drawable.img_3);
-
+//        if (currentItem.getPhoto() == "Not available" ) {
+//            holder.itemImage.setImageResource(R.drawable.img_3);
+//
+//        } else {
+//            Glide.with(holder.itemView).load(currentItem.getPhoto()).into(holder.itemImage);
+//        }
+        if (currentItem.getPhoto() != null && !currentItem.getPhoto().equals("Not available")) {
+            //Uri imageUri = Uri.parse();
+            Uri imageUri = Uri.fromFile(new File(currentItem.getPhoto()));
+            Glide.with(holder.itemView)
+                    .load(imageUri)
+                    //.error(R.drawable.img_3) // Set your default image resource in case of error
+                    .into(holder.itemImage);
         } else {
-            Glide.with(holder.itemView).load(currentItem.getPhoto()).into(holder.itemImage);
+            holder.itemImage.setImageResource(R.drawable.img_3); // Set your default image resource
         }
+
     }
 
     @Override

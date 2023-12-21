@@ -47,9 +47,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
             <ImageView
+                android:layout_marginTop="20dp"
                 android:id="@+id/photo_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
 
             </ImageView>
             <androidx.appcompat.widget.AppCompatButton
@@ -64,8 +67,6 @@
                 android:layout_gravity="center"
                android:layout_margin="20dp"
                 ></androidx.appcompat.widget.AppCompatButton>
-
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

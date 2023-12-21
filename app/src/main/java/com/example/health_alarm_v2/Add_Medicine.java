@@ -2,9 +2,12 @@ package com.example.health_alarm_v2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +17,10 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class Add_Medicine extends AppCompatActivity {
 
@@ -94,9 +101,19 @@ public class Add_Medicine extends AppCompatActivity {
                     Medicine medicine = new Medicine();
 
                     medicine.setName(name);
-                    medicine.setPhoto("Not available");
-                    if (photoURL != null && !photoURL.isEmpty()) {
-                        medicine.setPhoto(photoURL);
+
+                    if (selectedImageUri != null) {
+                        try {
+                            Bitmap bitmap = uriToBitmap(selectedImageUri);
+                            Uri newUri = saveBitmapToInternalStorage(bitmap);
+                            photo.setImageURI(newUri);
+                            photoURL = newUri.toString();
+                            medicine.setPhoto(photoURL);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        medicine.setPhoto("Not available");
                     }
                     medicine.setType(type);
                     medicine.setQuantity(quantity);
@@ -138,14 +155,49 @@ public class Add_Medicine extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-
             if (requestCode == SELECT_PICTURE) {
                 selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    photo.setImageURI(selectedImageUri);
-                    photoURL=selectedImageUri.toString();
+                if (selectedImageUri != null) {
+                    try {
+                        Bitmap bitmap = uriToBitmap(selectedImageUri);
+                        Uri newUri = saveBitmapToInternalStorage(bitmap);
+                        photo.setImageURI(newUri);
+                        photoURL = newUri.toString();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+    }
+
+    private Bitmap uriToBitmap(Uri uri) throws IOException {
+        return MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+    }
+
+    private Uri saveBitmapToInternalStorage(Bitmap bitmap) {
+        ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
+
+        File file = wrapper.getDir("images", MODE_PRIVATE);
+        String filename = "Image_" + System.currentTimeMillis() + ".jpg";
+        File imagePath = new File(file, filename);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(imagePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return Uri.parse(imagePath.getAbsolutePath());
     }
 }
