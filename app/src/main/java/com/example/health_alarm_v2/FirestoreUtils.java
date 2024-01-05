@@ -14,12 +14,7 @@ public class FirestoreUtils {
 
     private static FirebaseFirestore firestoreInstance = FirebaseFirestore.getInstance();
 
-//    public static void add(String collectionName, Object dataObject, OnSuccessListener<DocumentReference> onSuccessListener, OnFailureListener onFailureListener) {
-//        firestoreInstance.collection(collectionName)
-//                .add(dataObject)
-//                .addOnSuccessListener(onSuccessListener)
-//                .addOnFailureListener(onFailureListener);
-//    }
+   // add function
     public static void add(String collectionName, Object dataObject,  OnSuccessListener<DocumentReference> onSuccessListener, OnFailureListener onFailureListener) {
        
 
@@ -42,7 +37,7 @@ public class FirestoreUtils {
     // Replace this method with your custom ID generation logic
     private static String generateCustomId() {
         // Implement your custom ID generation logic here
-        // For example, you can use UUID.randomUUID().toString() for a unique ID
+        // using UUID.randomUUID().toString() for a unique ID
         return UUID.randomUUID().toString();
     }
 
